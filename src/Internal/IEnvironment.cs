@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal interface IEnvironment
     {

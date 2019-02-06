@@ -1,4 +1,4 @@
-﻿namespace Lambda.Native.Internal
+﻿namespace LambdaNative.Internal
 {
     internal interface ILambdaBootstrap
     {

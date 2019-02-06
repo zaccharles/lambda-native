@@ -1,6 +1,6 @@
-﻿using Lambda.Native.Internal;
+﻿using LambdaNative.Internal;
 
-namespace Lambda.Native
+namespace LambdaNative
 {
     public class EntryPoint<THandler, TInput, TOutput> where THandler : IHandler, IHandler<TInput, TOutput>, new()
     {

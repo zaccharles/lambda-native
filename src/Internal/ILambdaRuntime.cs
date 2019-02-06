@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal interface ILambdaRuntime
     {

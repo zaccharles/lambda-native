@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal class LambdaBootstrap : ILambdaBootstrap
     {

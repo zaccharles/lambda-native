@@ -1,7 +1,7 @@
 ﻿using System;
 using Amazon.Lambda.Core;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal class LambdaLogger : ILambdaLogger
     {

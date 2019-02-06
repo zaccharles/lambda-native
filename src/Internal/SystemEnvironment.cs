@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal class SystemEnvironment : IEnvironment
     {

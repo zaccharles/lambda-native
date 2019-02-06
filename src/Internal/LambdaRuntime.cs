@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using ThirdParty.Json.LitJson;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal class LambdaRuntime : ILambdaRuntime
     {

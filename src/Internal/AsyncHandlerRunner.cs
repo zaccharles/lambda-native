@@ -1,6 +1,6 @@
 using Amazon.Lambda.Core;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal class AsyncHandlerRunner<THandler, TInput, TOutput> : HandlerRunnerBase<THandler, TInput, TOutput>
         where THandler : IHandler, IAsyncHandler<TInput, TOutput>, new()

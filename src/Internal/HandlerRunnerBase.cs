@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Amazon.Lambda.Core;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal abstract class HandlerRunnerBase<THandler, TInput, TOutput> : IHandlerRunner
         where THandler : IHandler, new()

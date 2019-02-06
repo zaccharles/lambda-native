@@ -1,7 +1,7 @@
 using System.IO;
 using Amazon.Lambda.Core;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal interface IHandlerRunner
     {

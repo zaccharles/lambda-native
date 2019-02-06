@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using Xunit;
-using Lambda.Native.Internal;
 using Amazon.Lambda.Core;
 using FakeItEasy;
 using System.Reflection;
+using LambdaNative.Internal;
 
-namespace Lambda.Native.UnitTests
+namespace LambdaNative.Tests
 {
     public abstract class AsyncHandlerRunnerTests
     {

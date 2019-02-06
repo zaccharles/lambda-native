@@ -2,7 +2,7 @@
 using System.Collections;
 using Amazon.Lambda.Core;
 
-namespace Lambda.Native.Internal
+namespace LambdaNative.Internal
 {
     internal class LambdaContext : ILambdaContext
     {

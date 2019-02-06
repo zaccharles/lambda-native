@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 
-namespace Lambda.Native
+namespace LambdaNative
 {
     public interface IAsyncHandler<in TInput, TOutput>
     {

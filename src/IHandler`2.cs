@@ -1,6 +1,6 @@
 ﻿using Amazon.Lambda.Core;
 
-namespace Lambda.Native
+namespace LambdaNative
 {
     public interface IHandler<in TInput, out TOutput>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Lambda.Native.Internal;
+using LambdaNative.Internal;
 
-namespace Lambda.Native
+namespace LambdaNative
 {
     public class AsyncEntryPoint<THandler, TInput, TOutput> where THandler : IHandler, IAsyncHandler<TInput, TOutput>, new()
     {
