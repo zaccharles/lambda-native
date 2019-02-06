@@ -41,7 +41,7 @@ namespace LambdaNative.Internal
             }
             catch (Exception ex)
             {
-                throw new LambdaUserCodeException("An exception was thrown while deserializing the input.", ex, true);
+                throw new LambdaUserCodeException("An exception was thrown while deserializing the input.", ex);
             }
 
             try
@@ -51,7 +51,7 @@ namespace LambdaNative.Internal
             }
             catch (Exception ex)
             {
-                throw new LambdaUserCodeException("An exception was thrown by the Handle method.", ex, true);
+                throw new LambdaUserCodeException("An exception was thrown by the Handle method.", ex);
             }
 
             try
@@ -62,7 +62,7 @@ namespace LambdaNative.Internal
             }
             catch (Exception ex)
             {
-                throw new LambdaUserCodeException("An exception was thrown while serializing the output.", ex, true);
+                throw new LambdaUserCodeException("An exception was thrown while serializing the output.", ex);
             }
         }
     }
