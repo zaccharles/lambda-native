@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using LambdaNative.Internal;
 
 namespace LambdaNative
@@ -10,7 +11,7 @@ namespace LambdaNative
             var uae = Environment.GetEnvironmentVariable("UNWRAP_AGGREGATE_EXCEPTIONS");
             var unwrapAggregateExceptions = uae != null && (uae == "1" || uae.ToLower() == "true");
 
-            ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment());
+            ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment(), new HttpClient());
             IHandlerRunner runner = new AsyncHandlerRunner<THandler, TInput, TOutput>(unwrapAggregateExceptions);
             ILambdaBootstrap bootstrap = new LambdaBootstrap(runtime, runner);
 

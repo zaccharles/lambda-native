@@ -13,11 +13,11 @@ namespace LambdaNative.Tests
     {
         public class TestHandler : IHandler, IAsyncHandler<string, string>
         {
-            public virtual ILambdaSerializer Serializer { get; }
+            public virtual ILambdaSerializer Serializer { get; set; }
 
             public virtual Task<string> Handle(string input, ILambdaContext context)
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
 
@@ -35,7 +35,7 @@ namespace LambdaNative.Tests
             A.CallTo(() => handler.Handle("input", context)).Returns("output");
 
             // act
-            var output = runner.Handle("input", context);
+            runner.Handle("input", context);
 
             // assert
             A.CallTo(() => handler.Handle("input", context)).MustHaveHappened();
@@ -53,13 +53,13 @@ namespace LambdaNative.Tests
                   .SetValue(runner, handler);
 
             A.CallTo(() => handler.Handle(A<string>.Ignored, A<ILambdaContext>.Ignored))
-                .ThrowsAsync(new ArgumentException());
+                .ThrowsAsync(new DivideByZeroException());
 
             // act
             var ex = Record.Exception(() => runner.Handle(string.Empty, context));
 
             // assert
-            ex.ShouldBeOfType<ArgumentException>();
+            ex.ShouldBeOfType<DivideByZeroException>();
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace LambdaNative.Tests
                   .SetValue(runner, handler);
 
             A.CallTo(() => handler.Handle(A<string>.Ignored, A<ILambdaContext>.Ignored))
-                .ThrowsAsync(new ArgumentException());
+                .ThrowsAsync(new DivideByZeroException());
 
             // act
             var ex = Record.Exception(() => runner.Handle(string.Empty, context));

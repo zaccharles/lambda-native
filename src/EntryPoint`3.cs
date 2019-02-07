@@ -1,4 +1,5 @@
-﻿using LambdaNative.Internal;
+﻿using System.Net.Http;
+using LambdaNative.Internal;
 
 namespace LambdaNative
 {
@@ -6,7 +7,7 @@ namespace LambdaNative
     {
         public static void Main(string[] args)
         {
-            ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment());
+            ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment(), new HttpClient());
             IHandlerRunner runner = new HandlerRunner<THandler, TInput, TOutput>();
             ILambdaBootstrap bootstrap = new LambdaBootstrap(runtime, runner);
 
