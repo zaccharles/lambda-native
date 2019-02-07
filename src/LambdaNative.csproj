@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Core" Version="1.0.0" />
-    <PackageReference Include="LitJson" Version="0.13.0" />
   </ItemGroup>
 
 </Project>
