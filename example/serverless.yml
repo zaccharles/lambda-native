@@ -1,0 +1,11 @@
+﻿service: lambda-native
+
+provider:
+  name: aws
+  runtime: dotnetcore2.1
+
+functions:
+  example:
+    handler: LambdaNative.Example::LambdaNative.Example.Handler::Handle
+    package:
+      artifact: bin/release/netcoreapp2.1/hello.zip
