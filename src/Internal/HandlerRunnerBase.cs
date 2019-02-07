@@ -58,6 +58,7 @@ namespace LambdaNative.Internal
             {
                 var outputStream = new MemoryStream();
                 _serializer.Serialize(output, outputStream);
+                outputStream.Position = 0;
                 return outputStream;
             }
             catch (Exception ex)

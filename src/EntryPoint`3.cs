@@ -7,7 +7,7 @@ namespace LambdaNative
     {
         public static void Main(string[] args)
         {
-            ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment(), new HttpClient());
+            ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment(), new SystemDateTime(), new HttpClient());
             IHandlerRunner runner = new HandlerRunner<THandler, TInput, TOutput>();
             ILambdaBootstrap bootstrap = new LambdaBootstrap(runtime, runner);
 

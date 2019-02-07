@@ -13,8 +13,10 @@ namespace LambdaNative.Tests.Extensions
         public static string FromStream(this Stream s)
         {
             var ms = new MemoryStream();
-            s.Position = 0;
+            var position = s.Position;
             s.CopyTo(ms);
+            s.Position = position;
+
             return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)s.Length);
         }
     }

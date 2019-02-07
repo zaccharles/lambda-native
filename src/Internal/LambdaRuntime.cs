@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using LitJson;
 
 namespace LambdaNative.Internal
@@ -11,6 +12,7 @@ namespace LambdaNative.Internal
     internal class LambdaRuntime : ILambdaRuntime
     {
         private readonly IDictionary _initialEnvironmentVariables;
+        private readonly IDateTime _dateTime;
         private readonly HttpClient _http;
         private readonly JsonWriter _jsonWriter;
 
@@ -21,7 +23,7 @@ namespace LambdaNative.Internal
             return true;
         }
 
-        public LambdaRuntime(IEnvironment environment, HttpClient http)
+        public LambdaRuntime(IEnvironment environment, IDateTime dateTime, HttpClient http)
         {
             Environment = environment;
             _initialEnvironmentVariables = environment.GetEnvironmentVariables();
@@ -29,6 +31,7 @@ namespace LambdaNative.Internal
             var endpoint = _initialEnvironmentVariables["AWS_LAMBDA_RUNTIME_API"] as string;
             http.BaseAddress = new Uri($"http://{endpoint}/2018-06-01/runtime/");
 
+            _dateTime = dateTime;
             _http = http;
             _jsonWriter = new JsonWriter { LowerCaseProperties = true, PrettyPrint = true };
         }
@@ -42,24 +45,25 @@ namespace LambdaNative.Internal
                     throw new Exception($"Failed to get invocation from runtime API. Status code: {(int)response.StatusCode}.");
                 }
 
-                var requestId = response.Headers.GetValues("lambda-runtime-aws-request-id").FirstOrDefault();
-                var xAmznTraceId = response.Headers.GetValues("lambda-runtime-trace-id").FirstOrDefault();
-                var invokedFunctionArn = response.Headers.GetValues("lambda-runtime-invoked-function-arn").FirstOrDefault();
+                var requestId = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-aws-request-id");
+                var xAmznTraceId = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-trace-id");
+                var invokedFunctionArn = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-invoked-function-arn");
 
-                var deadlineMs = response.Headers.GetValues("lambda-runtime-deadline-ms").FirstOrDefault();
+                var deadlineMs = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-deadline-ms");
                 long.TryParse(deadlineMs, out var deadlineMsLong);
                 var deadlineDate = DateTimeOffset.FromUnixTimeMilliseconds(deadlineMsLong);
 
                 var responseStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
                 var inputStream = new MemoryStream();
                 responseStream.CopyTo(inputStream);
+                inputStream.Position = 0;
 
                 var context = new LambdaContext(_initialEnvironmentVariables)
                 {
                     AwsRequestId = requestId,
                     InvokedFunctionArn = invokedFunctionArn,
                     Logger = LambdaLogger.Instance,
-                    RemainingTimeFunc = () => deadlineDate.Subtract(DateTimeOffset.UtcNow)
+                    RemainingTimeFunc = () => deadlineDate.Subtract(_dateTime.OffsetUtcNow)
                 };
 
                 var invokeData = new InvokeData
@@ -112,6 +116,16 @@ namespace LambdaNative.Internal
                     Console.WriteLine($"Failed to report error for request {requestId}.");
                 }
             }
+        }
+
+        private static string GetHeaderFirstValueOrNull(HttpResponseHeaders headers, string key)
+        {
+            if (headers == null || !headers.TryGetValues(key, out var values))
+            {
+                return null;
+            }
+
+            return values.FirstOrDefault();
         }
 
         private string ToJson(object obj)
