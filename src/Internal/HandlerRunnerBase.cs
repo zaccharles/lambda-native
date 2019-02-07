@@ -19,7 +19,7 @@ namespace LambdaNative.Internal
 
             if (typeof(TInput) != typeof(Stream) || typeof(TOutput) != typeof(Stream))
             {
-                throw new LambdaValidationException(
+                throw new LambdaInitializationException(
                     $"'Serializer' property not set on handler '{Handler.GetType().FullName}'. " +
                     "To use types other than System.IO.Stream as input/output parameters, " +
                     "the 'Serializer' property must be set.");
@@ -41,7 +41,7 @@ namespace LambdaNative.Internal
             }
             catch (Exception ex)
             {
-                throw new LambdaUserCodeException("An exception was thrown while deserializing the input.", ex);
+                throw new LambdaSerializationException("An exception was thrown while deserializing the input.", ex);
             }
 
             try
@@ -51,7 +51,7 @@ namespace LambdaNative.Internal
             }
             catch (Exception ex)
             {
-                throw new LambdaUserCodeException("An exception was thrown by the Handle method.", ex);
+                throw new LambdaInvocationException("An exception was thrown by the Handle method.", ex);
             }
 
             try
@@ -63,7 +63,7 @@ namespace LambdaNative.Internal
             }
             catch (Exception ex)
             {
-                throw new LambdaUserCodeException("An exception was thrown while serializing the output.", ex);
+                throw new LambdaSerializationException("An exception was thrown while serializing the output.", ex);
             }
         }
     }

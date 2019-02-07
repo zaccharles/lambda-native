@@ -48,7 +48,7 @@ namespace LambdaNative.Tests
             var ex = Record.Exception(() => runner.Initialize());
 
             // assert
-            ex.ShouldBeOfType<LambdaValidationException>();
+            ex.ShouldBeOfType<LambdaInitializationException>();
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace LambdaNative.Tests
             var ex = Record.Exception(() => runner.Initialize());
 
             // assert
-            ex.ShouldBeOfType<LambdaValidationException>();
+            ex.ShouldBeOfType<LambdaInitializationException>();
         }
 
         [Fact]

@@ -80,7 +80,7 @@ namespace LambdaNative.Internal
 
         public void ReportInitializationError(Exception exception)
         {
-            var json = ToJson(new ErrorResponse(exception));
+            var json = ToJson(ExceptionResponse.Create(exception));
 
             using (var response = _http.PostAsync("init/error",
                 new StringContent(json)).GetAwaiter().GetResult())
@@ -106,7 +106,7 @@ namespace LambdaNative.Internal
 
         public void ReportInvocationError(string requestId, Exception exception)
         {
-            var json = ToJson(new ErrorResponse(exception));
+            var json = ToJson(ExceptionResponse.Create(exception));
 
             using (var response = _http.PostAsync($"invocation/{requestId}/error",
                 new StringContent(json)).GetAwaiter().GetResult())
@@ -133,31 +133,6 @@ namespace LambdaNative.Internal
             _jsonWriter.Reset();
             JsonMapper.ToJson(obj, _jsonWriter);
             return _jsonWriter.ToString();
-        }
-    }
-
-    public class ErrorResponse
-    {
-        public string ErrorType { get; set; }
-        public string ErrorMessage { get; set; }
-        public string[] StackTrace { get; set; }
-        public ErrorResponse InnerException { get; set; }
-        public ErrorResponse Cause { get; set; }
-        public ErrorResponse[] Causes { get; set; }
-
-        public ErrorResponse(Exception ex)
-        {
-            if (ex == null) return;
-
-            ErrorType = ex.GetType().Name;
-            ErrorMessage = ex.Message;
-            StackTrace = ex.StackTrace?.Split('\n').ToArray();
-            InnerException = ex.InnerException != null ? new ErrorResponse(ex) : null;
-
-            if (!(ex is AggregateException aggregateException)) return;
-
-            Causes = aggregateException.InnerExceptions?.Select(x => new ErrorResponse(x)).ToArray();
-            Cause = Causes?.FirstOrDefault();
         }
     }
 }
