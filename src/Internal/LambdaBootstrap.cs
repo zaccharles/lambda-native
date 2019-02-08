@@ -28,6 +28,8 @@ namespace LambdaNative.Internal
 
         public void Run()
         {
+            this.LogDebug("Entering run loop");
+
             while (_runtime.KeepInvokeLoopRunning())
             {
                 var requestId = string.Empty;

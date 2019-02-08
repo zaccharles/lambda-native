@@ -9,11 +9,15 @@ namespace LambdaNative.Internal
 
         public AsyncHandlerRunner(bool unwrapAggregateExceptions)
         {
+            this.LogDebug($"unwrapAggregateExceptions: {unwrapAggregateExceptions}");
+
             _unwrapAggregateExceptions = unwrapAggregateExceptions;
         }
 
         public override TOutput Handle(TInput input, ILambdaContext context)
         {
+            this.LogDebug("Calling handler (async)");
+
             var task = Handler.Handle(input, context);
 
             return _unwrapAggregateExceptions

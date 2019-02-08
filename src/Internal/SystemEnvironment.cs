@@ -11,15 +11,33 @@ namespace LambdaNative.Internal
 
         public void SetEnvironmentVariable(string key, string value)
         {
+            this.LogDebug($"Setting environment variable {key} to '{value}'");
+
             // Workaround because Environment.SetEnvironmentVariable is not implemented in CoreRT.
             // See https://github.com/dotnet/corert/issues/6971 for more details.
-            try { Environment.SetEnvironmentVariable(key, value); }
-            catch { setenv(key, value); }
+            try
+            {
+                Environment.SetEnvironmentVariable(key, value);
+            }
+            catch (Exception ex)
+            {
+                this.LogDebug($"Environment threw {ex.GetType().Name}. Falling back to PInvoke");
+                setenv(key, value);
+            }
         }
 
         public IDictionary GetEnvironmentVariables()
         {
-            return Environment.GetEnvironmentVariables();
+            this.LogDebug("Getting environment variables");
+
+            var variables = Environment.GetEnvironmentVariables();
+
+            foreach (var key in variables.Keys)
+            {
+                this.LogDebug($"{key} = {variables[key]}");
+            }
+
+            return variables;
         }
     }
 }

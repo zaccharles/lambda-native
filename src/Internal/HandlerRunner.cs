@@ -7,6 +7,7 @@ namespace LambdaNative.Internal
     {
         public override TOutput Handle(TInput input, ILambdaContext context)
         {
+            this.LogDebug("Calling handler");
             return Handler.Handle(input, context);
         }
     }

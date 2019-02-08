@@ -38,12 +38,18 @@ namespace LambdaNative.Internal
 
         public InvokeData GetNextInvocation()
         {
+            this.LogDebug("Getting next invocation");
+
             using (var response = _http.GetAsync("invocation/next").GetAwaiter().GetResult())
             {
+                this.LogDebug($"Response status code is {(int)response.StatusCode}");
+
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    throw new Exception($"Failed to get invocation from runtime API. Status code: {(int)response.StatusCode}.");
+                    throw new Exception($"Failed to get invocation from runtime API. Status code: {(int)response.StatusCode}");
                 }
+
+                this.LogDebug("Reading response headers");
 
                 var requestId = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-aws-request-id");
                 var xAmznTraceId = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-trace-id");
@@ -53,10 +59,14 @@ namespace LambdaNative.Internal
                 long.TryParse(deadlineMs, out var deadlineMsLong);
                 var deadlineDate = DateTimeOffset.FromUnixTimeMilliseconds(deadlineMsLong);
 
+                this.LogDebug("Reading input stream");
+
                 var responseStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
                 var inputStream = new MemoryStream();
                 responseStream.CopyTo(inputStream);
                 inputStream.Position = 0;
+
+                this.LogDebug($"Input stream contains {inputStream.Length} bytes");
 
                 var context = new LambdaContext(_initialEnvironmentVariables)
                 {
@@ -74,62 +84,86 @@ namespace LambdaNative.Internal
                     RequestId = requestId
                 };
 
+                this.LogDebug($"Got request {requestId}");
+
                 return invokeData;
             }
         }
 
         public void ReportInitializationError(Exception exception)
         {
+            this.LogDebug($"Creating ExceptionResponse from {exception?.GetType().Name} exception");
+
             var json = ToJson(ExceptionResponse.Create(exception));
+
+            this.LogDebug("Reporting invocation error");
 
             using (var response = _http.PostAsync("init/error",
                 new StringContent(json)).GetAwaiter().GetResult())
             {
+                this.LogDebug($"Response status code is {(int)response.StatusCode}");
+
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    Console.WriteLine("Failed to report initialization error.");
+                    Console.WriteLine("Failed to report initialization error");
                 }
             }
         }
 
         public void ReportInvocationSuccess(string requestId, Stream outputStream)
         {
+            this.LogDebug("Reporting invocation success");
+
             using (var response = _http.PostAsync($"invocation/{requestId}/response",
                 new StreamContent(outputStream)).GetAwaiter().GetResult())
             {
+                this.LogDebug($"Response status code is {(int)response.StatusCode}");
+
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    Console.WriteLine($"Failed to report success for request {requestId}.");
+                    Console.WriteLine($"Failed to report success for request {requestId}");
                 }
             }
         }
 
         public void ReportInvocationError(string requestId, Exception exception)
         {
+            this.LogDebug($"Creating ExceptionResponse from {exception?.GetType().Name} exception");
+
             var json = ToJson(ExceptionResponse.Create(exception));
+
+            this.LogDebug("Reporting invocation error");
 
             using (var response = _http.PostAsync($"invocation/{requestId}/error",
                 new StringContent(json)).GetAwaiter().GetResult())
             {
+                this.LogDebug($"Response status code is {(int)response.StatusCode}");
+
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    Console.WriteLine($"Failed to report error for request {requestId}.");
+                    Console.WriteLine($"Failed to report error for request {requestId}");
                 }
             }
         }
 
-        private static string GetHeaderFirstValueOrNull(HttpResponseHeaders headers, string key)
+        private string GetHeaderFirstValueOrNull(HttpHeaders headers, string key)
         {
             if (headers == null || !headers.TryGetValues(key, out var values))
             {
+                this.LogDebug($"Header {key} is null");
                 return null;
             }
 
-            return values.FirstOrDefault();
+            var value = values.FirstOrDefault();
+            this.LogDebug($"Header {key} is '{value}'");
+
+            return value;
         }
 
         private string ToJson(object obj)
         {
+            this.LogDebug($"Converting {obj?.GetType().Name} to JSON");
+
             _jsonWriter.Reset();
             JsonMapper.ToJson(obj, _jsonWriter);
             return _jsonWriter.ToString();

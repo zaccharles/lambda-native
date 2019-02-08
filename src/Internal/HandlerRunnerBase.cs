@@ -15,7 +15,11 @@ namespace LambdaNative.Internal
             Handler = new THandler();
             _serializer = Handler.Serializer;
 
-            if (_serializer != null) return;
+            if (_serializer != null)
+            {
+                this.LogDebug($"Handler provided a {_serializer.GetType().Name} serializer");
+                return;
+            }
 
             if (typeof(TInput) != typeof(Stream) || typeof(TOutput) != typeof(Stream))
             {
@@ -25,6 +29,7 @@ namespace LambdaNative.Internal
                     "the 'Serializer' property must be set.");
             }
 
+            this.LogDebug("Handler didn't provide a serializer, using StreamSerializer");
             _serializer = new StreamSerializer();
         }
 
@@ -37,6 +42,7 @@ namespace LambdaNative.Internal
 
             try
             {
+                this.LogDebug("Deserializing input");
                 input = _serializer.Deserialize<TInput>(inputStream);
             }
             catch (Exception ex)
@@ -56,6 +62,7 @@ namespace LambdaNative.Internal
 
             try
             {
+                this.LogDebug("Serializing output");
                 var outputStream = new MemoryStream();
                 _serializer.Serialize(output, outputStream);
                 outputStream.Position = 0;
