@@ -1,6 +1,10 @@
 ﻿namespace LambdaNative.Example
 {
-    public class EntryPoint : EntryPoint<Handler, Request, Response>
+    public static class EntryPoint
     {
+        public static void Main()
+        {
+            LambdaNative.Run<Handler, Request, Response>();
+        }
     }
 }
