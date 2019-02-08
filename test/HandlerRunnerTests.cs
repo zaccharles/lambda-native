@@ -15,7 +15,7 @@ namespace LambdaNative.Tests
 
             public virtual string Handle(string input, ILambdaContext context)
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
 

@@ -18,7 +18,7 @@ namespace LambdaNative.Tests
 
             public virtual string Handle(string input, ILambdaContext context)
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
 
@@ -26,7 +26,7 @@ namespace LambdaNative.Tests
         {
             public override TOutput Handle(TInput input, ILambdaContext context)
             {
-                throw new NotImplementedException();
+                return default(TOutput);
             }
         }
 
