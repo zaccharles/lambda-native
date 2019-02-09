@@ -1,65 +1,88 @@
-//////////////////////////////////////////////////////////////////////
-// ARGUMENTS
-//////////////////////////////////////////////////////////////////////
-
 var target = Argument("target", "Default");
-var configuration = Argument("configuration", "Release");
 
-//////////////////////////////////////////////////////////////////////
-// PREPARATION
-//////////////////////////////////////////////////////////////////////
+var configuration = 
+    HasArgument("Configuration") ? Argument<string>("Configuration") :
+    EnvironmentVariable("Configuration") != null ? EnvironmentVariable("Configuration") : "Release";
+var preReleaseSuffix =
+    HasArgument("PreReleaseSuffix") ? Argument<string>("PreReleaseSuffix") :
+    (AppVeyor.IsRunningOnAppVeyor && AppVeyor.Environment.Repository.Tag.IsTag) ? null :
+    EnvironmentVariable("PreReleaseSuffix") != null ? EnvironmentVariable("PreReleaseSuffix") :
+    "beta";
+var buildNumber =
+    HasArgument("BuildNumber") ? Argument<int>("BuildNumber") :
+    AppVeyor.IsRunningOnAppVeyor ? AppVeyor.Environment.Build.Number :
+    TravisCI.IsRunningOnTravisCI ? TravisCI.Environment.Build.BuildNumber :
+    EnvironmentVariable("BuildNumber") != null ? int.Parse(EnvironmentVariable("BuildNumber")) :
+    0;
 
-// Define directories.
-var buildDir = Directory("./src/bin") + Directory(configuration);
-var solution = "./LambdaNative.sln";
-var projectName = "LambdaNative";
-
-//////////////////////////////////////////////////////////////////////
-// TASKS
-//////////////////////////////////////////////////////////////////////
+var versionSuffix = string.IsNullOrEmpty(preReleaseSuffix) ? null : preReleaseSuffix + "-" + buildNumber.ToString("D4");
+var artifactsDir = Directory("./artifacts");
 
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectory(buildDir);
+    CleanDirectory(artifactsDir);
+    DeleteDirectories(GetDirectories("**/bin"), new DeleteDirectorySettings() { Force = true, Recursive = true });
+    DeleteDirectories(GetDirectories("**/obj"), new DeleteDirectorySettings() { Force = true, Recursive = true });
 });
 
-Task("Restore-NuGet-Packages")
+Task("Restore")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    DotNetCoreRestore(solution, new DotNetCoreRestoreSettings{
-        Verbosity = DotNetCoreVerbosity.Minimal,
-    });
+    DotNetCoreRestore();
 });
 
 Task("Build")
-    .IsDependentOn("Restore-NuGet-Packages")
+    .IsDependentOn("Restore")
     .Does(() =>
 {
-    MSBuild(solution, settings =>
-        settings.SetConfiguration(configuration));
+    DotNetCoreBuild(
+        ".",
+        new DotNetCoreBuildSettings()
+        {
+            Configuration = configuration,
+            NoRestore = true,
+            VersionSuffix = versionSuffix
+        });
 });
 
-Task("Run-Unit-Tests")
+Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    DotNetCoreTest("./test/" + projectName + ".Tests.csproj", new DotNetCoreTestSettings
+    foreach(var project in GetFiles("./test/*.Tests.csproj"))
     {
-        Configuration = "Release"
-    });
+        DotNetCoreTest(
+            project.ToString(),
+            new DotNetCoreTestSettings()
+            {
+                Configuration = configuration,
+                Logger = $"trx;LogFileName={project.GetFilenameWithoutExtension()}.trx",
+                NoBuild = true,
+                NoRestore = true,
+                ResultsDirectory = artifactsDir
+            });
+    }
 });
 
-//////////////////////////////////////////////////////////////////////
-// TASK TARGETS
-//////////////////////////////////////////////////////////////////////
+Task("Pack")
+    .IsDependentOn("Test")
+    .Does(() =>
+    {
+        DotNetCorePack(
+            ".",
+            new DotNetCorePackSettings()
+            {
+                Configuration = configuration,
+                NoBuild = true,
+                NoRestore = true,
+                OutputDirectory = artifactsDir,
+                VersionSuffix = versionSuffix
+            });
+    });
 
 Task("Default")
-    .IsDependentOn("Run-Unit-Tests");
-
-//////////////////////////////////////////////////////////////////////
-// EXECUTION
-//////////////////////////////////////////////////////////////////////
+    .IsDependentOn("Pack");
 
 RunTarget(target);

@@ -10,12 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LambdaNative" Version="1.0.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.5.0" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\src\LambdaNative.csproj" />
   </ItemGroup>
 
 </Project>

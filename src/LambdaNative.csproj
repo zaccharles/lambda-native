@@ -13,6 +13,7 @@
     <PackageProjectUrl>https://github.com/zaccharles/lambda-native</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/zaccharles/lambda-native/master/assets/logo.png</PackageIconUrl>
     <PackageLicense>https://github.com/zaccharles/lambda-native/blob/master/LICENSE</PackageLicense>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
