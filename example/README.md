@@ -150,7 +150,7 @@ Follow one of the two steps based on whether you're using the [Serverless framew
  * (Optional) **Handler:** Change to anything, it doesn't matter. I like `provided`
  * Click `Save` at the top of the page.
 
-![](assets/config.png)
+![](../assets/config.png)
 
 ### **Testing**
 No matter which deployment option you chose, you now have a new function. To test it, click on `Test` at the top of the page.
