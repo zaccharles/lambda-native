@@ -51,11 +51,11 @@ namespace LambdaNative.Internal
 
                 this.LogDebug("Reading response headers");
 
-                var requestId = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-aws-request-id");
-                var xAmznTraceId = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-trace-id");
-                var invokedFunctionArn = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-invoked-function-arn");
+                var requestId = GetHeaderFirstValueOrNull(response.Headers, "Lambda-Runtime-Aws-Request-Id");
+                var xAmznTraceId = GetHeaderFirstValueOrNull(response.Headers, "Lambda-Runtime-Trace-Id");
+                var invokedFunctionArn = GetHeaderFirstValueOrNull(response.Headers, "Lambda-Runtime-Invoked-Function-Arn");
 
-                var deadlineMs = GetHeaderFirstValueOrNull(response.Headers, "lambda-runtime-deadline-ms");
+                var deadlineMs = GetHeaderFirstValueOrNull(response.Headers, "Lambda-Runtime-Deadline-Ms");
                 long.TryParse(deadlineMs, out var deadlineMsLong);
                 var deadlineDate = DateTimeOffset.FromUnixTimeMilliseconds(deadlineMsLong);
 

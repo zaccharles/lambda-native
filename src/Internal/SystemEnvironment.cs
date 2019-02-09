@@ -21,7 +21,7 @@ namespace LambdaNative.Internal
             }
             catch (Exception ex)
             {
-                this.LogDebug($"Environment threw {ex.GetType().Name}. Falling back to PInvoke");
+                this.LogDebug($"Environment threw {ex.GetType().Name} (will use PInvoke workaround)");
                 setenv(key, value);
             }
         }

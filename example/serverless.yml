@@ -8,4 +8,4 @@ functions:
   example:
     handler: LambdaNative.Example::LambdaNative.Example.Handler::Handle
     package:
-      artifact: bin/release/netcoreapp2.1/hello.zip
+      artifact: package.zip
