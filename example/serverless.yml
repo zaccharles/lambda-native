@@ -4,8 +4,9 @@ provider:
   name: aws
   runtime: dotnetcore2.1
 
+package:
+      artifact: package.zip
+
 functions:
   example:
     handler: LambdaNative.Example::LambdaNative.Example.Handler::Handle
-    package:
-      artifact: package.zip
