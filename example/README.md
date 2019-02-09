@@ -167,7 +167,7 @@ The first time you do this, you'll need to configure a test event. The `Hello Wo
 ```
 This occurs when the `bootstrap` file isn't executable. Usually this will happen if you copied the file over the internet (especially to a Windows machine) before zipping it.
 
-The easiest thing to do is create the .zip file straight away after building. If you followed by EC2/Ubuntu instructions above, you can do the following in the example directory:
+Running `chmod +x bootstrap` will fix this, but the easiest thing to do is to create the .zip file straight away after building. If you followed by EC2/Ubuntu instructions above, you can do the following in the example directory:
 ```bash
 > sudo apt install zip -y
 > zip package.zip bootstrap
