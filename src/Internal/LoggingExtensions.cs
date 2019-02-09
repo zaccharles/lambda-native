@@ -11,7 +11,7 @@ namespace LambdaNative.Internal
         {
             if (!ShouldLogDebugLazy.Value) return;
 
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            var timestamp = DateTimeOffset.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             Console.WriteLine($"[{timestamp}] [DEBUG] [{name}] {message}");
         }
 

@@ -32,8 +32,14 @@ namespace LambdaNative.Internal
 
             var variables = Environment.GetEnvironmentVariables();
 
-            foreach (var key in variables.Keys)
+            foreach (string key in variables.Keys)
             {
+                if (key == "AWS_SESSION_TOKEN" || key == "AWS_SECRET_ACCESS_KEY")
+                {
+                    this.LogDebug($"{key} = <hidden>");
+                    continue;
+                }
+
                 this.LogDebug($"{key} = {variables[key]}");
             }
 

@@ -25,7 +25,7 @@ namespace LambdaNative.Internal
                 if (ex is AggregateException aggregateException)
                 {
                     response.InnerExceptions =
-                        aggregateException.InnerExceptions?.Select(x => Create(x)).ToArray();
+                        aggregateException.InnerExceptions?.Select(Create).ToArray();
                 }
             }
 

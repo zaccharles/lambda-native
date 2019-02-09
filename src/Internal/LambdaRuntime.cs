@@ -103,7 +103,7 @@ namespace LambdaNative.Internal
             {
                 this.LogDebug($"Response status code is {(int)response.StatusCode}");
 
-                if (response.StatusCode != HttpStatusCode.OK)
+                if (response.StatusCode != HttpStatusCode.Accepted)
                 {
                     Console.WriteLine("Failed to report initialization error");
                 }
@@ -119,7 +119,7 @@ namespace LambdaNative.Internal
             {
                 this.LogDebug($"Response status code is {(int)response.StatusCode}");
 
-                if (response.StatusCode != HttpStatusCode.OK)
+                if (response.StatusCode != HttpStatusCode.Accepted)
                 {
                     Console.WriteLine($"Failed to report success for request {requestId}");
                 }
@@ -139,7 +139,7 @@ namespace LambdaNative.Internal
             {
                 this.LogDebug($"Response status code is {(int)response.StatusCode}");
 
-                if (response.StatusCode != HttpStatusCode.OK)
+                if (response.StatusCode != HttpStatusCode.Accepted)
                 {
                     Console.WriteLine($"Failed to report error for request {requestId}");
                 }
