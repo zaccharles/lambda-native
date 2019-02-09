@@ -1,4 +1,4 @@
-# LambdaNative
+# ![](assets/logo-small.png) LambdaNative
 Make .NET AWS Lambda functions start 10x faster using **LambdaNative**.
 
 # How It Works
