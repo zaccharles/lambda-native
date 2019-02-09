@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <AssemblyName>LambdaNative</AssemblyName>
+    <PackageId>LambdaNative</PackageId>
+    <PackageTags>aws,lambda,native</PackageTags>
+    <title>LambdaNative</title>
+    <PackageReleaseNotes>https://github.com/zaccharles/lambda-native/releases/tag/1.0.0</PackageReleaseNotes>
+    <Authors>Zac Charles</Authors>
+    <Description>Make .NET AWS Lambda functions start 10x faster using LambdaNative</Description>
+    <PackageProjectUrl>https://github.com/zaccharles/lambda-native</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/zaccharles/lambda-native/master/assets/logo.png</PackageIconUrl>
+    <PackageLicense>https://github.com/zaccharles/lambda-native/blob/master/LICENSE</PackageLicense>
   </PropertyGroup>
 
   <ItemGroup>
