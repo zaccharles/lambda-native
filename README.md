@@ -1,5 +1,9 @@
 # ![](assets/logo-small.png) LambdaNative
-Make .NET AWS Lambda functions start 10x faster using LambdaNative.
+Make .NET AWS Lambda functions start 10x faster using LambdaNative.  
+  
+[![Build status](https://ci.appveyor.com/api/projects/status/5x6prdi6oeonxbm7?svg=true)](https://ci.appveyor.com/project/zaccharles/lambda-native)
+[![nuget](https://img.shields.io/nuget/v/LambdaNative.svg)](https://www.nuget.org/packages/LambdaNative/)
+  
 
 # Usage
 
