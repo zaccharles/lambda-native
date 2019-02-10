@@ -1,4 +1,4 @@
-# LambdaNative Example
+# ![](../assets/logo-small.png) LambdaNative Example
 
 This example shows what's necessary to convert an existing Lambda function into a LambdaNative function and how to build a native executable from it using [CoreRT](https://github.com/dotnet/corert).  
 
