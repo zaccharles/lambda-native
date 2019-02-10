@@ -1,5 +1,24 @@
-version: 1.0.{build}
+version: '{build}'
+pull_requests:
+  do_not_increment_build_number: true
 image: Visual Studio 2017
+environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+nuget:
+  disable_publish_on_pr: true
 build_script:
-- cmd: PowerShell -Version 2.0 .\build.ps1
+- ps: PowerShell -Version 2.0 .\build.ps1
 test: off
+artifacts:
+- path: .\artifacts\**\*.nupkg
+  name: NuGet Package
+- path: .\artifacts\**\*.trx
+  name: Test Results
+deploy:
+- provider: NuGet
+  api_key:
+    secure: mGWUzBP2/ztHAHuU3F5SROLlU3JRU8PY5cxVgRgdvPPZVdhrWJfQEEDJiJr4xMEo
+  on:
+    branch: master
+    appveyor_repo_tag: true
