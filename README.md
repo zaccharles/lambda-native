@@ -9,6 +9,10 @@ At the end of 2018, AWS [announced](https://aws.amazon.com/about-aws/whats-new/2
 
 You can then use [CoreRT](https://github.com/dotnet/corert) to perform ahead of time compilation, producing a native executable that doesn't require any runtime compilation.
 
+Below is a comparison between a standard function and one running under LambdaNative. The function deserialies a request object, writes to DynamoDB, publishes an SNS message, and returns a response object.
+
+For more information and comparisons, please read [this Medium post](https://medium.com/zaccharles/8e53d6f12c9c).
+
 ![](assets/comparison.png)
 
 # Getting Started
