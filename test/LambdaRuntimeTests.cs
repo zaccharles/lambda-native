@@ -38,7 +38,7 @@ namespace LambdaNative.Tests
             _http.Expect(HttpMethod.Post, "http://test/2018-06-01/runtime/init/error")
                 .WithPartialContent(nameof(DivideByZeroException))
                 .WithPartialContent(nameof(ReportInitializationError_PostsExceptionToCorrectEndpoint))
-                .Respond(HttpStatusCode.OK);
+                .Respond(HttpStatusCode.Accepted);
 
             // act
             _runtime.ReportInitializationError(ex);
@@ -57,7 +57,7 @@ namespace LambdaNative.Tests
             _http.Expect(HttpMethod.Post, $"http://test/2018-06-01/runtime/invocation/{requestId}/error")
                 .WithPartialContent(nameof(DivideByZeroException))
                 .WithPartialContent(nameof(ReportInvocationError_PostsExceptionToCorrectEndpoint))
-                .Respond(HttpStatusCode.OK);
+                .Respond(HttpStatusCode.Accepted);
 
             // act
             _runtime.ReportInvocationError(requestId, ex);
@@ -75,7 +75,7 @@ namespace LambdaNative.Tests
 
             _http.Expect(HttpMethod.Post, $"http://test/2018-06-01/runtime/invocation/{requestId}/response")
                 .WithPartialContent(nameof(ReportInvocationSuccess_PostsOutputToCorrectEndpoint))
-                .Respond(HttpStatusCode.OK);
+                .Respond(HttpStatusCode.Accepted);
 
             // act
             _runtime.ReportInvocationSuccess(requestId, outputStream);
