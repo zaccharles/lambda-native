@@ -1,6 +1,11 @@
 #!/bin/bash
 
-dotnet publish -r linux-x64 -c release
-cp bin/release/netcoreapp*/linux-x64/native/* bootstrap
-# zip package.zip bootstrap
+rm -f $(pwd)/publish/bootstrap
+rm -f $(pwd)/publish/package.zip
+
+docker run --rm -v $(pwd)/publish:/app/out lambdanative
+cd publish
+cp LambdaNative.Example bootstrap
+zip package.zip bootstrap
+
 # aws s3 cp package.zip s3://<bucket>/package.zip
