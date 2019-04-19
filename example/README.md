@@ -123,6 +123,19 @@ Here are instructions on how to compile the example project on Ubuntu using EC2.
 
 You now have a native executable file named `bootstrap`.
 
+# Compiling with Docker (For Non-Linux User)
+
+* Create Docker image
+```bash
+docker build -t lambdanative .
+```
+* Run script to compile
+```bash
+sh build.sh
+```
+
+And we have `package.zip` in folder `publish` for ready to deploy
+
 # Deployment
 
 Now that you have a native executable named `bootstrap`, you can deploy it to AWS Lambda. It's important that the file is named `bootstrap` as this is a convention that lets AWS Lambda know which file to execute.  
