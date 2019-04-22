@@ -136,6 +136,8 @@ sh build.sh
 
 And we have `package.zip` in folder `publish` for ready to deploy
 
+If your source code changed, you can run only "build.sh" for generate native file
+
 # Deployment
 
 Now that you have a native executable named `bootstrap`, you can deploy it to AWS Lambda. It's important that the file is named `bootstrap` as this is a convention that lets AWS Lambda know which file to execute.  
