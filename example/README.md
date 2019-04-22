@@ -127,7 +127,7 @@ You now have a native executable file named `bootstrap`.
 
 * Create Docker image
 ```bash
-docker build -t lambdanative .
+sh build-docker.sh
 ```
 * Run script to compile
 ```bash
