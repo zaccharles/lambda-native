@@ -1,8 +1,8 @@
 # ![](assets/logo-small.png) LambdaNative
-Make .NET AWS Lambda functions start 10x faster using LambdaNative.  
+Make .NET AWS Lambda functions start 10x faster using LambdaNative and custom for solved AWS Lambda connection timeout (Based on [lambda-native](https://github.com/zaccharles/lambda-native) by @zaccharles)
   
-[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
-[![Build status](https://ci.appveyor.com/api/projects/status/5x6prdi6oeonxbm7/branch/master?svg=true)](https://ci.appveyor.com/project/zaccharles/lambda-native/branch/master)
+
+[![Build status](https://ci.appveyor.com/api/projects/status/i8h933ig07xin5r7/branch/master?svg=true)](https://ci.appveyor.com/project/ifew/lambda-native/branch/master)
 [![nuget](https://img.shields.io/nuget/v/iFew.LambdaNative.svg)](https://www.nuget.org/packages/iFew.LambdaNative/)
   
 
@@ -28,13 +28,13 @@ For more information and comparisons, please read [this Medium post](https://med
 
 ## Prerequisites
 
- * [.NET Core SDK 2.1.503](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+ * [.NET Core SDK 2.2.402](https://dotnet.microsoft.com/download/dotnet-core/2.2)
 
 ## Building
 
 Clone repository
 ```bash
-> git clone https://github.com/zaccharles/lambda-native.git
+> git clone https://github.com/ifew/lambda-native.git
 ```
 
 Restore NuGet packages
