@@ -1,6 +1,7 @@
 # ![](assets/logo-small.png) LambdaNative
 Make .NET AWS Lambda functions start 10x faster using LambdaNative and custom for solved AWS Lambda connection timeout (Based on [lambda-native](https://github.com/zaccharles/lambda-native) by @zaccharles)
-  
+
+Found this solution: Suratchanan Kraidech
 
 [![Build status](https://ci.appveyor.com/api/projects/status/i8h933ig07xin5r7/branch/master?svg=true)](https://ci.appveyor.com/project/ifew/lambda-native/branch/master)
 [![nuget](https://img.shields.io/nuget/v/iFew.LambdaNative.svg)](https://www.nuget.org/packages/iFew.LambdaNative/)
