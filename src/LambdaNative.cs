@@ -29,7 +29,10 @@ namespace LambdaNative
 
         private static void Run(IHandlerRunner runner)
         {
-            ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment(), new SystemDateTime(), new HttpClient());
+            HttpClient httpClient = new HttpClient();
+            httpClient.Timeout = TimeSpan.FromMinutes(30);
+
+            ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment(), new SystemDateTime(), httpClient);
             ILambdaBootstrap bootstrap = new LambdaBootstrap(runtime, runner);
 
             bootstrap.Initialize();
