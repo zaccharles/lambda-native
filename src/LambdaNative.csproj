@@ -5,9 +5,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>1.0.0</VersionPrefix>
     <AssemblyName>LambdaNative</AssemblyName>
-    <Authors>Zac Charles</Authors>
+    <Authors>iFew and Benz</Authors>
     <Description>Make .NET AWS Lambda functions start 10x faster using LambdaNative</Description>
-    <PackageId>LambdaNative</PackageId>
+    <PackageId>iFew.LambdaNative</PackageId>
     <PackageTags>aws,lambda,native,performance</PackageTags>
     <PackageProjectUrl>https://github.com/zaccharles/lambda-native</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/zaccharles/lambda-native/master/assets/logo.png</PackageIconUrl>
