@@ -6,7 +6,7 @@ Make .NET AWS Lambda functions start 10x faster using LambdaNative and custom fo
 
 # Change Log
 
-##### Fixed AWS Lambda Connection Timeout
+#### Fixed AWS Lambda Connection Timeout
 
 After the invocating first time (Cold Start) and then waiting for 100 seconds its get error message because of AWS Lambda has default connection timeout at 100 seconds (reference https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-retry-timeout-sdk/)
 
