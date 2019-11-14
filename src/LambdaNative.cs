@@ -29,8 +29,11 @@ namespace LambdaNative
 
         private static void Run(IHandlerRunner runner)
         {
+            // The Lambda container freezes the process at a point where an HTTP request is in progress.
+            // We need to make sure we don't timeout waiting for the next invocation.
+            // Reference 12 Hours from AWS Custom Runtime Support
             HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = TimeSpan.FromMinutes(30);
+            httpClient.Timeout = TimeSpan.FromHours(12);
 
             ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment(), new SystemDateTime(), httpClient);
             ILambdaBootstrap bootstrap = new LambdaBootstrap(runtime, runner);
