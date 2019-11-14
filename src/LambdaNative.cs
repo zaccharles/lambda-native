@@ -30,8 +30,8 @@ namespace LambdaNative
         private static void Run(IHandlerRunner runner)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = TimeSpan.FromMinutes(10);
-            
+            httpClient.Timeout = TimeSpan.FromMinutes(30);
+
             ILambdaRuntime runtime = new LambdaRuntime(new SystemEnvironment(), new SystemDateTime(), httpClient);
             ILambdaBootstrap bootstrap = new LambdaBootstrap(runtime, runner);
 
