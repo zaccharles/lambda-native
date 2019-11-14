@@ -4,16 +4,16 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>1.0.0</VersionPrefix>
-    <AssemblyName>LambdaNative</AssemblyName>
-    <Authors>Zac Charles</Authors>
-    <Description>Make .NET AWS Lambda functions start 10x faster using LambdaNative</Description>
-    <PackageId>LambdaNative</PackageId>
+    <AssemblyName>LambdaNativeCustom</AssemblyName>
+    <Authors>iFew</Authors>
+    <Description>Make .NET AWS Lambda functions start 10x faster using LambdaNative and custom for solved AWS Lambda connection timeout (Based on LambdaNative by zaccharles)</Description>
+    <PackageId>LambdaNativeCustom</PackageId>
     <PackageTags>aws,lambda,native,performance</PackageTags>
-    <PackageProjectUrl>https://github.com/zaccharles/lambda-native</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/zaccharles/lambda-native/master/assets/logo.png</PackageIconUrl>
-    <PackageLicense>https://github.com/zaccharles/lambda-native/blob/master/LICENSE</PackageLicense>
+    <PackageProjectUrl>https://github.com/ifew/lambda-native</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/ifew/lambda-native/master/assets/logo.png</PackageIconUrl>
+    <PackageLicense>https://github.com/ifew/lambda-native/blob/master/LICENSE</PackageLicense>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/zaccharles/lambda-native</RepositoryUrl>
+    <RepositoryUrl>https://github.com/ifew/lambda-native</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
