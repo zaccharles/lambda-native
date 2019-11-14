@@ -4,8 +4,10 @@ Make .NET AWS Lambda functions start 10x faster using LambdaNative and custom fo
 [![Build status](https://ci.appveyor.com/api/projects/status/i8h933ig07xin5r7/branch/master?svg=true)](https://ci.appveyor.com/project/ifew/lambda-native/branch/master)
 [![nuget](https://img.shields.io/nuget/v/LambdaNative.svg)](https://www.nuget.org/packages/LambdaNativeCustom/)
 
-# Changed Log
-**Fixed AWS Lambda Connection Timeout**
+# Change Log
+
+##### Fixed AWS Lambda Connection Timeout
+
 After the invocating first time (Cold Start) and then waiting for 100 seconds its get error message because of AWS Lambda has default connection timeout at 100 seconds (reference https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-retry-timeout-sdk/)
 
 Found this solution: Suratchanan Kraidech
@@ -32,13 +34,13 @@ For more information and comparisons, please read [this Medium post](https://med
 
 ## Prerequisites
 
- * [.NET Core SDK 2.1.503](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+ * [.NET Core SDK 2.2.402](https://dotnet.microsoft.com/download/dotnet-core/2.2)
 
 ## Building
 
 Clone repository
 ```bash
-> git clone https://github.com/zaccharles/lambda-native.git
+> git clone https://github.com/ifew/lambda-native.git
 ```
 
 Restore NuGet packages
